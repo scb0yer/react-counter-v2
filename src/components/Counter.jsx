@@ -1,12 +1,16 @@
-import { useState } from "react";
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
+const Counter = (props) => {
+  const newCounter = [...props.counter.slice(0, props.index)];
   const changeCount = (sign) => {
     if (sign === "-") {
-      setCount(count - 1);
+      newCounter.push(props.count - 1);
+      newCounter.push([...props.counter.slice(props.index + 1)]);
+      props.setCounter(newCounter);
+      console.log(props.counter[props.index]);
     } else if (sign === "+") {
-      setCount(count + 1);
+      newCounter.push(props.count + 1);
+      newCounter.push([...props.counter.slice(props.index + 1)]);
+      props.setCounter(newCounter);
+      console.log(props.counter[props.index]);
     }
   };
   return (
@@ -14,7 +18,9 @@ const Counter = () => {
       <div className="changeCount">
         <div>
           <button
-            style={{ display: count < 1 ? "none" : "flex" }}
+            style={{
+              display: props.count < 1 ? "none" : "flex",
+            }}
             onClick={() => {
               changeCount("-");
             }}
@@ -22,10 +28,12 @@ const Counter = () => {
             -
           </button>
         </div>
-        <div>{count}</div>
+        <div>{props.count}</div>
         <div>
           <button
-            style={{ display: count > 9 ? "none" : "flex" }}
+            style={{
+              display: props.count > 9 ? "none" : "flex",
+            }}
             onClick={() => {
               changeCount("+");
             }}

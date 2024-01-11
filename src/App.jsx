@@ -8,17 +8,14 @@ import Header from "./components/Header";
 
 function App() {
   const [counter, setCounter] = useState([0]);
-  const [index, setIndex] = useState(1);
   const addCounter = (sign) => {
     const newCounter = [...counter];
     if (sign === "+") {
-      newCounter.push({ index });
+      newCounter.push("0");
       setCounter(newCounter);
-      setIndex(index + 1);
     } else if (sign === "-") {
       newCounter.pop();
       setCounter(newCounter);
-      setIndex(index - 1);
     }
 
     console.log({ counter });
@@ -29,7 +26,7 @@ function App() {
       <main>
         <div>
           <button
-            style={{ display: counter > 2 ? "none" : "flex" }}
+            style={{ display: counter.length > 2 ? "none" : "flex" }}
             onClick={() => {
               addCounter("+");
             }}
@@ -38,13 +35,21 @@ function App() {
           </button>
         </div>
         <div className="counters">
-          {counter.map((index) => {
-            return <Counter key={index} />;
+          {counter.map((count, index) => {
+            return (
+              <Counter
+                key={index}
+                index={index}
+                count={count}
+                counter={counter}
+                setCounter={setCounter}
+              />
+            );
           })}
         </div>
         <div>
           <button
-            style={{ display: counter < 1 ? "none" : "flex" }}
+            style={{ display: counter.length < 1 ? "none" : "flex" }}
             onClick={() => {
               addCounter("-");
             }}
