@@ -11,7 +11,7 @@ function App() {
   const addCounter = (sign) => {
     const newCounter = [...counter];
     if (sign === "+") {
-      newCounter.push("0");
+      newCounter.push(0);
       setCounter(newCounter);
     } else if (sign === "-") {
       newCounter.pop();

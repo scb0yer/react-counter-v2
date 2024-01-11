@@ -1,16 +1,15 @@
 const Counter = (props) => {
-  const newCounter = [...props.counter.slice(0, props.index)];
+  const newCounter = [...props.counter];
   const changeCount = (sign) => {
     if (sign === "-") {
-      newCounter.push(props.count - 1);
-      newCounter.push([...props.counter.slice(props.index + 1)]);
+      newCounter[props.index]--;
       props.setCounter(newCounter);
-      console.log(props.counter[props.index]);
     } else if (sign === "+") {
-      newCounter.push(props.count + 1);
-      newCounter.push([...props.counter.slice(props.index + 1)]);
+      newCounter[props.index]++;
       props.setCounter(newCounter);
-      console.log(props.counter[props.index]);
+    } else if (sign === 0) {
+      newCounter[props.index] = 0;
+      props.setCounter(newCounter);
     }
   };
   return (
@@ -43,7 +42,13 @@ const Counter = (props) => {
         </div>
       </div>
       <div>
-        <button>Reset</button>
+        <button
+          onClick={() => {
+            changeCount(0);
+          }}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
